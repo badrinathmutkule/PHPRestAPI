@@ -1,0 +1,33 @@
+- url: api/test/user
+  method: get
+  auth: 
+      ApiKey: Application/Auth/ApiKey
+      AccessToken: Application/Auth/AccessToken
+      
+- url: api/test/user
+  method: post
+  auth: 
+      ApiKey: Application/Auth/ApiKey
+      AccessToken: Application/Auth/AccessToken
+  payload:
+      firstname: required|valid_name
+      lastname: required|valid_name
+      email_id: required|valid_email
+      password: required|min_len,6|max_len,20
+  controller: Application/Test
+  action: registerUser
+
+  
+- url: api/test/user
+  method: put
+  auth: 
+      ApiKey: Application/Auth/ApiKey
+      AccessToken: Application/Auth/AccessToken
+  payload:
+      firstname: required|valid_name
+      lastname: required|valid_name
+      email_id: required|valid_email
+      password: required|min_len,6|max_len,20
+         
+      
+        
