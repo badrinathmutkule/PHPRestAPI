@@ -9,11 +9,9 @@
 namespace PHPRestFramework;
 
 class Input {
-
-    private static $filtered_input = [];
-
+    
     /**
-     * Constructor, dont allow to create instance of this class
+     * Constructor, don't allow to create instance of this class
      * so constructor is made private
      */
     private function __construct() {
@@ -27,9 +25,6 @@ class Input {
     public static function pattern() {
         $url = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
         $request_url = explode("?", $url)[0];
-        if (BASE_URL !== "/") {
-            return '/' . str_replace(BASE_URL, '', $request_url);
-        }
         return $request_url;
     }
 
@@ -138,7 +133,7 @@ class Input {
         if ($index === false) {
             return $_GET;
         }
-        return array_key_exists($index, $_GET) ? $_GET[$index] : false;
+        return array_key_exists($index, $_GET) ? $_GET[$index] : null;
     }
 
     /**
@@ -149,7 +144,7 @@ class Input {
         if ($index === false) {
             return $_POST;
         }
-        return array_key_exists($index, $_POST) ? $_POST[$index] : false;
+        return array_key_exists($index, $_POST) ? $_POST[$index] : null;
     }
 
     /**
@@ -162,7 +157,7 @@ class Input {
         if ($index === false) {
             return $raw_data;
         }
-        return array_key_exists($index, $raw_data) ? $raw_data[$index] : false;
+        return array_key_exists($index, $raw_data) ? $raw_data[$index] : null;
     }
 
     /**
@@ -174,7 +169,7 @@ class Input {
         if ($index === false) {
             return $raw_data;
         }
-        return array_key_exists($index, $raw_data) ? $raw_data[$index] : false;
+        return array_key_exists($index, $raw_data) ? $raw_data[$index] : null;
     }
 
     /**
@@ -187,20 +182,34 @@ class Input {
         if ($index === false) {
             return $raw_data;
         }
-        return array_key_exists($index, $raw_data) ? $raw_data[$index] : false;
+        return array_key_exists($index, $raw_data) ? $raw_data[$index] : null;
     }
 
     /**
-     * get Filtered params
+     * get all input parameters including files and form data
      * @param string $index
      * @return Mixed
      */
     public static function param($index = false) {
-        $filtered_data = self::$filtered_input;
-        if ($index === false) {
-            return $filtered_data;
+        $input = self::get_body();
+        
+        foreach($_GET as $key => $val){
+            $input[$key] = $val;
         }
-        return array_key_exists($index, $filtered_data) ? $filtered_data[$index] : false;
+        
+        foreach($_POST as $key => $val){
+            $input[$key] = $val;
+        }
+        
+        foreach($_FILES as $key => $val){
+            $input[$key] = $val;
+        }
+        
+        if ($index === false) {
+            return $input;
+        }
+        
+        return array_key_exists($index, $input) ? $input[$index] : null;
     }
 
     /**
@@ -211,7 +220,7 @@ class Input {
         if ($index === false) {
             return $_FILES;
         }
-        return array_key_exists($index, $_FILES) ? $_FILES[$index] : false;
+        return array_key_exists($index, $_FILES) ? $_FILES[$index] : null;
     }
 
     /**
@@ -224,7 +233,7 @@ class Input {
         if ($index === false) {
             return $headers;
         }
-        return array_key_exists(strtolower($index), $headers) ? $headers[strtolower($index)] : false;
+        return array_key_exists(strtolower($index), $headers) ? $headers[strtolower($index)] : null;
     }
 
     /**
@@ -253,13 +262,7 @@ class Input {
         }
         return $headers;
     }
-
-    /**
-     * Set Filtered input
-     * @param array $filtered_input
-     */
-    public static function set_filtered(array $filtered_input) {
-        self::$filtered_input = $filtered_input;
-    }
+    
+    
 
 }
