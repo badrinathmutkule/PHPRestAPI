@@ -1,5 +1,5 @@
 {   
-    "name": "badrinathmutkule/PHPRestAPI",
+    "name": "badrinathmutkule/phprestapi",
     "type": "library",
     "description": "PHPRestAPI is a PHP micro framework that helps you quickly write simple yet powerful Restful APIs",
     "keywords": ["framework","micro","api","router", "rest"],
