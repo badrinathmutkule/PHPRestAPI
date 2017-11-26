@@ -34,8 +34,8 @@ class Context {
      * Set context array
      * @param array $contextArray
      */
-    public static function set_array(array $context_array){
-        foreach ($context_array as $key => $value){
+    public static function setArray(array $contextArray){
+        foreach ($contextArray as $key => $value){
             self::$context[$key] = $value;
         }
     }
