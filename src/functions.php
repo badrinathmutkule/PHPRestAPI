@@ -39,7 +39,7 @@ set_exception_handler("exception_handler");
 function response_object($error, $code, array $message) {
     $finalData = [
         'error' => $error,
-        'response_code' => $code,
+        'code' => $code,
         'message' => $message
     ];
     return $finalData;

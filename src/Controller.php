@@ -6,13 +6,4 @@
  */
 namespace PHPRestFramework;
 
-class Controller extends Core{
-    
-    /**
-     * Construct
-     */
-    public function __construct() {
-        parent::__construct();
-    }
-    
-}
+class Controller extends Core{}

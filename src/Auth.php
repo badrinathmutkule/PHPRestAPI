@@ -11,13 +11,6 @@ namespace PHPRestFramework;
 abstract class Auth extends Core {
     
     /**
-     * Constructor
-     */
-    public function __construct() {
-        parent::__construct();
-    }
-
-    /**
      * @validate method should return response object
      */
     public abstract function validate();

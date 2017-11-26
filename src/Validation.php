@@ -24,7 +24,7 @@ class Validation {
      */
     public function run(array $input, array $validations) {
         foreach ($validations as $field => $validators) {
-            $value = isset($input[$field]) ? $input[$field] : "";
+            $value = isset($input[$field]) ? $input[$field] : null;
             $error = $this->validate_field($field, $validators, $value);
             if ($error !== false) {
                 $this->errors[] = $error;
@@ -48,13 +48,18 @@ class Validation {
             $method = $validation[0];
             $param = isset($validation[1]) ? $validation[1] : "";
             $validation_method = "validate_" . $method;
-
+            
             if (method_exists($this, $validation_method)) {
-                return $this->{$validation_method}($field, $value, $param);
+                $error = $this->{$validation_method}($field, $value, $param);
+                if($error !== false){
+                    return $error;
+                }
             } else {
-                throw new \Exception("Invalid validation method [$validation]");
+                throw new \Exception("Invalid validation method [$method]");
             }
         }
+        
+        return false;
     }
 
     /**
@@ -624,24 +629,6 @@ class Validation {
             return "The [$field] field needs to start with [$param]";
         }
         return false;
-    }
-
-    /**
-     * Validate if file was uploaded
-     * @param string $field
-     * @param string $input
-     * @param string $param optional
-     * @return Mixed 
-     */
-    protected function validate_required_file($field, $input, $param = null) {
-        if($input === null){
-            return false;
-        }
-        
-        if (isset($input['error']) && $input['error'] !== 4) {
-            return false;
-        }
-        return "The [$field] field is required";
     }
 
     /**

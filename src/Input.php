@@ -192,23 +192,18 @@ class Input {
      */
     public static function param($index = false) {
         $input = self::get_body();
-        
         foreach($_GET as $key => $val){
             $input[$key] = $val;
         }
-        
         foreach($_POST as $key => $val){
             $input[$key] = $val;
         }
-        
         foreach($_FILES as $key => $val){
             $input[$key] = $val;
         }
-        
         if ($index === false) {
             return $input;
         }
-        
         return array_key_exists($index, $input) ? $input[$index] : null;
     }
 
