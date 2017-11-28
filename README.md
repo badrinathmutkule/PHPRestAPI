@@ -44,9 +44,9 @@ Going to http://localhost:8000/hello/world will now display -
 {
     "error": true,
     "code": 1000,
-    "message": [
+    "message": {
         "greetings": "Hello world"
-    ],
+    },
     "process_time": 0.0000086408
 }
 ```
