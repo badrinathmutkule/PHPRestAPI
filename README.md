@@ -31,6 +31,26 @@ $rest->serve();
 
 ```
 
+Create routes.yaml file for defining your routes 
+
+```yaml
+
+- url: /hello/world
+  method: get
+  controller: User
+  action: getGreetings
+  auth: 
+  validation: 
+
+- url: /hello/world
+  method: post
+  controller: User
+  action: getGreetings
+  auth: 
+  validation:
+
+```
+
 
 
 You may quickly test this using the built-in PHP server:
