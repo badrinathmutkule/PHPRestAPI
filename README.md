@@ -1,9 +1,9 @@
 # PHP Rest API Framework
 
-[![Build Status](https://travis-ci.org/slimphp/Slim.svg?branch=3.x)](https://travis-ci.org/slimphp/Slim)
-[![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim/badge.svg?branch=3.x)](https://coveralls.io/github/slimphp/Slim?branch=3.x)
-[![Total Downloads](https://poser.pugx.org/slim/slim/downloads)](https://packagist.org/packages/slim/slim)
-[![License](https://poser.pugx.org/slim/slim/license)](https://packagist.org/packages/slim/slim)
+[![Build Status](https://travis-ci.org/badrinathmutkule/phprestapi.svg?branch=1.x)](https://travis-ci.org/badrinathmutkule/phprestapi)
+[![Coverage Status](https://coveralls.io/repos/github/badrinathmutkule/phprestapi/badge.svg?branch=3.x)](https://coveralls.io/github/badrinathmutkule/phprestapi?branch=1.x)
+[![Total Downloads](https://poser.pugx.org/badrinathmutkule/phprestapi/downloads)](https://packagist.org/packages/badrinathmutkule/phprestapi)
+[![License](https://poser.pugx.org/badrinathmutkule/phprestapi/license)](https://packagist.org/packages/badrinathmutkule/phprestapi)
 
 PHP Rest API is a PHP micro-framework that helps you quickly write simple yet powerful APIs.
 
@@ -61,7 +61,7 @@ $ phpunit
 
 ## Security
 
-If you discover security related issues, please email security@slimframework.com instead of using the issue tracker.
+If you discover security related issues, please email badrinath.mutkule@gmail.com instead of using the issue tracker.
 
 ## Credits
 
