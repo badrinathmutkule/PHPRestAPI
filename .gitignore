@@ -1,7 +1,6 @@
 .DS_Store
-/vendor/
-
 # vendor files
+/vendor/
 /vendor/*
 
 # IDE Files
