@@ -40,6 +40,7 @@ $ php -S localhost:8000
 
 Going to http://localhost:8000/hello/world will now display -
 
+```json
 {
     "error": true,
     "code": 1000,
@@ -48,7 +49,7 @@ Going to http://localhost:8000/hello/world will now display -
     ],
     "process_time": 0.0000086408
 }
-
+```
 For more information on how to configure your web server, see the [Documentation].
 
 ## Tests
