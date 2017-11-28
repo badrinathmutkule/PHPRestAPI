@@ -1,2 +1,2 @@
-# PHPRestAPI A PHP Microframework for developing resuful apis
-The rest Api framework for PHP
+# PHPRestAPI
+The Light weight rest api framework
