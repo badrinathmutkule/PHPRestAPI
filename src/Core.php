@@ -187,10 +187,11 @@ class Core {
      * @param boolean $error
      * @param int $code
      * @param Array $message
+     * @param array $data response data object
      * @return Array
      */
-    public function _response_object($error, $code, $message){
-        return response_object($error, $code, $message);
+    public function _response_object($error, $code, $message, $data = array()){
+        return response_object($error, $code, $message, $data);
     }
     
     /**
