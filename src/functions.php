@@ -1,4 +1,9 @@
 <?php
+/**
+ * All important functions
+ * @author Badrinath Mutkule <badrinath.mutkule@gmail.com>
+ * @version 1.0.0 [Beta]
+ */
 
 set_error_handler(function($type, $message, $file, $line) {
 
@@ -36,12 +41,17 @@ function exception_handler($ex) {
 
 set_exception_handler("exception_handler");
 
-function response_object($error, $code, array $message) {
+function response_object($error, $code, array $message, $data = array()) {
+    
     $finalData = [
         'error' => $error,
         'code' => $code,
         'message' => $message
     ];
+    
+    if(!empty($data)){
+        $finalData['data'] = $data;
+    }
     return $finalData;
 }
 
