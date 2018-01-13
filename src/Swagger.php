@@ -186,13 +186,13 @@ class Swagger {
                     foreach ($route_info['validation'] as $key => $value) {
                         $typearray = explode("|", $value);
                         $is_required = in_array("optional", $typearray) ? false : true;
-                        $param_type = (in_array("valid_image", $typearray) || in_array("valid_file", $typearray)) ? "file" : 'string';
+                        $param_type = (in_array("valid_image", $typearray) || in_array("valid_file", $typearray)) ? "file" : "string";
                         $parameters[] = [
                             "name" => $key,
                             "in" => "formData",
                             "required" => $is_required,
-                            "type" => "file",
-                            "format" => "file"
+                            "type" => $param_type,
+                            "format" => $param_type
                         ];
                     }
                 } else {
@@ -204,7 +204,6 @@ class Swagger {
                     $properties = [];
                     $required = [];
                     foreach ($route_info['validation'] as $key => $value) {
-                        
                         $typearray = explode("|", $value);
                         if (in_array('numeric', $typearray) || in_array("integer", $typearray)) {
                             $param_type = 'integer';
