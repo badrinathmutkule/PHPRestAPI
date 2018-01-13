@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The Swagger library for swagger documentation 
  * @author Badrinath Mutkule <badrinath.mutkule@gmail.com>
@@ -118,7 +119,7 @@ class Swagger {
                     "description" => ""
                 ]
             ];
-            
+
             $this->paths[$route['url']][$route['method']] = $path;
         }
     }
@@ -176,9 +177,7 @@ class Swagger {
                 $hasFile = false;
                 foreach ($route_info['validation'] as $key => $value) {
                     $typearray = explode("|", $value);
-                    if (in_array("valid_image", $typearray) ||
-                            in_array("file_type", $typearray) ||
-                            in_array("file_size", $typearray)) {
+                    if (in_array("valid_image", $typearray) || in_array("valid_file", $typearray)){
                         $hasFile = true;
                     }
                 }
@@ -187,6 +186,7 @@ class Swagger {
                     foreach ($route_info['validation'] as $key => $value) {
                         $typearray = explode("|", $value);
                         $is_required = in_array("optional", $typearray) ? false : true;
+                        $param_type = (in_array("valid_image", $typearray) || in_array("valid_file", $typearray)) ? "file" : 'string';
                         $parameters[] = [
                             "name" => $key,
                             "in" => "formData",
@@ -204,7 +204,15 @@ class Swagger {
                     $properties = [];
                     $required = [];
                     foreach ($route_info['validation'] as $key => $value) {
-                        $properties[$key] = ['type' => 'string'];
+                        
+                        $typearray = explode("|", $value);
+                        if (in_array('numeric', $typearray) || in_array("integer", $typearray)) {
+                            $param_type = 'integer';
+                        } else {
+                            $param_type = 'string';
+                        }
+                        
+                        $properties[$key] = ['type' => $param_type];
                         $required[] = $key;
                     }
                     $body_params['properties'] = $properties;
@@ -224,7 +232,7 @@ class Swagger {
                 }
             }
         }
-        
+
         return $parameters;
     }
 

@@ -688,6 +688,24 @@ class Validation {
         }
         return "The [$field] needs to be of size less than [$param] MB";
     }
+    
+    
+    /**
+     * Validate Uploaded file is a valid file
+     * @param string $field
+     * @param string $input
+     * @param string $param optional
+     * @return Mixed 
+     */
+    protected function validate_valid_file($field, $input, $param = null){
+        if($input === null){
+            return false;
+        }
+        if (isset($input['error']) && $input['error'] > 0) {
+            return "The [$field] needs to be a valid file";
+        }
+        return false;
+    }
 
     /**
      * Validate Uploaded file extension
