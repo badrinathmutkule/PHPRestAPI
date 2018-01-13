@@ -58,12 +58,12 @@ class Rest {
         }
         $valid = $this->validateAuth($mapped);
         if (!empty($valid)) {
-            response(500, $valid);
+            response(401, $valid);
         }
         $errors = $this->runValidations($mapped);
         if (!empty($errors)) {
             $response = response_object(true, 500, $errors);
-            response(403, $response);
+            response(400, $response);
         }
 
         $namespace = $this->getNs($mapped['controller']);
