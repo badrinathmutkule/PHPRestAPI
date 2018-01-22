@@ -75,6 +75,8 @@ For more information on how to configure your web server, see the [Documentation
 
 ## Generate swagger documentation for your apis 
 
+create doc.php file with following content
+
 ```php
 
 require_once 'vendor/autoload.php';
@@ -100,6 +102,13 @@ $swagger->set_route_file('routes.yaml'); //route file path
 $swagger->generate('wwwroot/doc/swagger.json');
 
 ```
+
+run following command 
+
+```bash
+$ php doc.php
+```
+
 ## Tests
 
 To execute the test suite, you'll need phpunit.
