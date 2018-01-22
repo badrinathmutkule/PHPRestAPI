@@ -72,6 +72,34 @@ Going to http://localhost:8000/hello/world will now display -
 ```
 For more information on how to configure your web server, see the [Documentation].
 
+
+## Generate swagger documentation for your apis 
+
+```php
+
+require_once 'vendor/autoload.php';
+
+define('DEBUG_MODE', TRUE);
+
+$swagger = new PHPRestFramework\Swagger();
+
+$swagger->set_info([
+    "version" => "1.0",
+    "title" => "Test APIs",
+    "description" => "Your api description goes here.",
+    "license" => [
+        "name" => "MIT",
+        "url" => "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+    ]
+]);
+
+$swagger->set_host("localhost:8080");
+$swagger->set_base_path("/");  
+$swagger->set_schema("HTTP"); //htttp or https 
+$swagger->set_route_file('routes.yaml'); //route file path
+$swagger->generate('wwwroot/doc/swagger.json');
+
+```
 ## Tests
 
 To execute the test suite, you'll need phpunit.
