@@ -5,6 +5,26 @@
  * @version 1.0.0 [Beta]
  */
 
+function shutdown_handler() {
+    $isError = false;
+
+    if ($error = error_get_last()){
+    switch($error['type']){
+        case E_ERROR:
+        case E_CORE_ERROR:
+        case E_COMPILE_ERROR:
+        case E_USER_ERROR:
+            $isError = true;
+            break;
+        }
+    }
+    if ($isError){
+        var_dump ($error);//do whatever you need with it
+    }
+}
+
+register_shutdown_function('shutdown_handler');
+
 set_error_handler(function($type, $message, $file, $line) {
 
     $error = ['error' => [

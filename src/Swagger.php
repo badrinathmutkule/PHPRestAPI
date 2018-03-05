@@ -130,7 +130,7 @@ class Swagger {
      * @return array
      */
     private function get_tags($classpath) {
-        $parts = explode('/', $classpath);
+        $parts = explode('\\', $classpath);
         $last = strtoupper(array_pop($parts));
         return [$last];
     }
