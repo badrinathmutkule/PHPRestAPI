@@ -1,25 +1,38 @@
 <?php
+
 /**
  * All important functions
  * @author Badrinath Mutkule <badrinath.mutkule@gmail.com>
  * @version 1.0.0 [Beta]
  */
-
 function shutdown_handler() {
     $isError = false;
 
-    if ($error = error_get_last()){
-    switch($error['type']){
-        case E_ERROR:
-        case E_CORE_ERROR:
-        case E_COMPILE_ERROR:
-        case E_USER_ERROR:
-            $isError = true;
-            break;
+    if ($error = error_get_last()) {
+        switch ($error['type']) {
+            case E_ERROR:
+            case E_CORE_ERROR:
+            case E_COMPILE_ERROR:
+            case E_USER_ERROR:
+                $isError = true;
+                break;
         }
     }
-    if ($isError){
-        var_dump ($error);//do whatever you need with it
+    if ($isError) {
+        $e = ['error' => [
+                'type' => $error['type'],
+                'message' => $error['message'],
+                'file' => $error['file'],
+                'line' => $error['line']
+        ]];
+
+        if (defined("DEBUG_MODE") && DEBUG_MODE) {
+            $output = response_object(true, 500, $e);
+            response(500, $output);
+        } else {
+            $output = response_object(true, 500, ['server error']);
+            response(500, $output);
+        }
     }
 }
 
@@ -62,14 +75,14 @@ function exception_handler($ex) {
 set_exception_handler("exception_handler");
 
 function response_object($error, $code, array $message, $data = array()) {
-    
+
     $finalData = [
         'error' => $error,
         'code' => $code,
         'message' => $message
     ];
-    
-    if(!empty($data)){
+
+    if (!empty($data)) {
         $finalData['data'] = $data;
     }
     return $finalData;
