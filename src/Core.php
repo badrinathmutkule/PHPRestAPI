@@ -167,7 +167,7 @@ class Core {
      * @param array $context
      */
     public function _set_context_array(array $context){
-        Context::set_array($context);
+        Context::setArray($context);
     }
     
     /**
