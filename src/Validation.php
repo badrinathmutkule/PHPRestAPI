@@ -678,7 +678,7 @@ class Validation {
      * @param string $param optional
      * @return Mixed 
      */
-    protected function validate_file_size($field, $input, $param = null) {
+    protected function validate_max_file_size($field, $input, $param = null) {
         if($input === null){
             return false;
         }
@@ -708,17 +708,17 @@ class Validation {
     }
 
     /**
-     * Validate Uploaded file extension
+     * Validate Uploaded file extension is allowed
      * @param string $field
      * @param string $input
      * @param string $param optional
      * @return Mixed 
      */
-    protected function validate_extension($field, $input, $param = null) {
+    protected function validate_allowed_extension($field, $input, $param = null) {
         if($input === null){
             return false;
         }
-        
+
         if (isset($input['error']) && $input['error'] !== 4) {
             $param = trim(strtolower($param));
             $allowed_extensions = explode(';', $param);
