@@ -1,7 +1,5 @@
 # PHP Rest API Framework
 
-[![Build Status](https://travis-ci.org/badrinathmutkule/phprestapi.svg?branch=1.x)](https://travis-ci.org/badrinathmutkule/phprestapi)
-[![Coverage Status](https://coveralls.io/repos/github/badrinathmutkule/phprestapi/badge.svg?branch=3.x)](https://coveralls.io/github/badrinathmutkule/phprestapi?branch=1.x)
 [![Total Downloads](https://poser.pugx.org/badrinathmutkule/phprestapi/downloads)](https://packagist.org/packages/badrinathmutkule/phprestapi)
 [![License](https://poser.pugx.org/badrinathmutkule/phprestapi/license)](https://packagist.org/packages/badrinathmutkule/phprestapi)
 
@@ -45,15 +43,60 @@ Create routes.yaml file for defining your routes
 - url: /hello/world
   method: post
   controller: User
-  action: getGreetings
+  action: postGreetings
   auth: 
   validation:
+        message: required
+
+```
+Create a folder named Application where you will write all your models and controllers
+Now create controller file named User.php under Application folder with following contents
+
+```php
+<?php
+
+namespace Application;
+
+class User extends \PHPRestFramework\Controller {
+
+    public function __construct(){
+        //write any construct code 
+        //you can write pre validation here 
+    }
+
+
+    public function getGreetings(){
+
+        return $this->_response_object(false, 1000, ["success"], ["greetings" => "Welcome to PHP Rest API framework"]);
+    }
+
+
+    public function postGreetings(){
+        $message = $this->_param("message");
+
+        //write your code to presist this message 
+        //and return success 
+
+        return $this->_response_object(false, 1000, ["success"]);
+
+        // $this->_response_object(); accepts 4 params as follows
+        // 1 -> status boolean true/false
+        // 2 -> status code (not http code ) any integer value
+        // 3 -> array<string> message success ior error
+        // 4 -> array<data> any data on success 
+
+    }
+
+
+
+}
+
 
 ```
 
 
 
-You may quickly test this using the built-in PHP server:
+You may quickly test this running the built-in PHP server:
 ```bash
 $ php -S localhost:8000
 ```
@@ -64,14 +107,14 @@ Going to http://localhost:8000/hello/world will now display -
 {
     "error": true,
     "code": 1000,
-    "message": {
-        "greetings": "Hello world"
+    "message": ["success"],
+    "data": {
+        "greetings": "Welcome to PHP Rest API framework"
     },
     "process_time": 0.0000086408
 }
 ```
 For more information on how to configure your web server, see the [Documentation].
-
 
 ## Generate swagger documentation for your apis 
 
@@ -99,7 +142,7 @@ $swagger->set_host("localhost:8080");
 $swagger->set_base_path("/");  
 $swagger->set_schema("HTTP"); //htttp or https 
 $swagger->set_route_file('routes.yaml'); //route file path
-$swagger->generate('wwwroot/doc/swagger.json');
+$swagger->generate('swagger.json');
 
 ```
 
@@ -110,7 +153,6 @@ $ php doc.php
 ```
 
 ## Tests
-
 To execute the test suite, you'll need phpunit.
 
 ```bash
