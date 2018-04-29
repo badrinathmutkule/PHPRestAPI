@@ -2,7 +2,7 @@
     "name": "badrinathmutkule/phprestapi",
     "type": "library",
     "description": "PHPRestAPI is a PHP micro framework that helps you quickly write simple yet powerful Restful APIs",
-    "keywords": ["framework","micro","api","router", "rest"],
+    "keywords": ["framework","micro","api","router", "rest","PHPRestAPI"],
     "homepage": "https://edcast.com",
     "license": "MIT",
     "authors": [
