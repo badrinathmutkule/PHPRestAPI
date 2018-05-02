@@ -23,7 +23,7 @@ class Rest {
         if (file_exists($routefile)) {
             $this->routes = Yaml::parse(file_get_contents($routefile));
         } else {
-            throw new Exception("Invalid route file");
+            throw new \Exception("Invalid route file");
         }
     }
 
