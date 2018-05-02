@@ -10,7 +10,7 @@ PHP Rest API is a PHP micro-framework that helps you quickly write simple yet po
 It's recommended that you use [Composer](https://getcomposer.org/) to install PHP Rest API.
 
 ```bash
-$ composer require badrinathmutkule/phprestapi "^1.0"
+$ composer require badrinathmutkule/phprestapi "dev-master"
 ```
 
 This will install PHP Rest API and all required dependencies. PHP Rest API requires PHP 5.5.0 or newer.
