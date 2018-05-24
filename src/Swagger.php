@@ -308,6 +308,11 @@ class Swagger {
      */
     private function has_file($route){
         $hasFile = false;
+
+        if(is_null($route['validation'])){
+            return false;
+        }
+        
         foreach ($route['validation'] as $key => $value) {
             $typearray = explode("|", $value);
             if (in_array("valid_image", $typearray) || in_array("valid_file", $typearray)){
