@@ -31,6 +31,8 @@ class Validation {
             }
         }
         return $this->errors;
+
+        
     }
 
     /**

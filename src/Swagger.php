@@ -114,6 +114,11 @@ class Swagger {
                 'IsMultiContentStreaming' => false
             ];
             $path['parameters'] = $this->get_parameters($operation_id, $route);
+
+            $hasFile = $this->has_file($route);
+            if($hasFile){
+                $path['consumes'] = ["multipart/form-data"];
+            }
             $path["responses"] = [
                 "200" => [
                     "description" => ""
@@ -173,15 +178,7 @@ class Swagger {
                     $parameters[] = $param;
                 }
             } else {
-
-                $hasFile = false;
-                foreach ($route_info['validation'] as $key => $value) {
-                    $typearray = explode("|", $value);
-                    if (in_array("valid_image", $typearray) || in_array("valid_file", $typearray)){
-                        $hasFile = true;
-                    }
-                }
-
+                $hasFile = $this->has_file($route_info);
                 if ($hasFile) {
                     foreach ($route_info['validation'] as $key => $value) {
                         $typearray = explode("|", $value);
@@ -302,6 +299,22 @@ class Swagger {
             }
         }
         return $string;
+    }
+
+    /**
+     * Check if this route is for file upload
+     * @param array $route
+     * @return boolean 
+     */
+    private function has_file($route){
+        $hasFile = false;
+        foreach ($route['validation'] as $key => $value) {
+            $typearray = explode("|", $value);
+            if (in_array("valid_image", $typearray) || in_array("valid_file", $typearray)){
+                $hasFile = true;
+            }
+        }
+        return $hasFile;
     }
 
 }

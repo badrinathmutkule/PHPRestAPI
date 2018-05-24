@@ -38,6 +38,10 @@ function shutdown_handler() {
 
 register_shutdown_function('shutdown_handler');
 
+/**
+ * Set error hander
+ * error handler function 
+ */
 set_error_handler(function($type, $message, $file, $line) {
 
     $error = ['error' => [
@@ -74,6 +78,15 @@ function exception_handler($ex) {
 
 set_exception_handler("exception_handler");
 
+
+/**
+ * Response object function
+ * @param boolean $error true or palse value for error
+ * @param int $code an error or success code
+ * @param array $message 
+ * @param array $data optional
+ * return final array
+ */
 function response_object($error, $code, array $message, $data = array()) {
 
     $finalData = [
