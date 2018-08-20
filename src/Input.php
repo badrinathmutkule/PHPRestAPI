@@ -9,7 +9,7 @@
 namespace PHPRestFramework;
 
 class Input {
-    
+
     /**
      * Constructor, don't allow to create instance of this class
      * so constructor is made private
@@ -190,21 +190,28 @@ class Input {
      * @param string $index
      * @return Mixed
      */
-    public static function param($index = false) {
+    public static function param($index = false, $xss_filter = false) {
+        
         $input = self::get_body();
-        foreach($_GET as $key => $val){
+        foreach ($_GET as $key => $val) {
             $input[$key] = $val;
         }
-        foreach($_POST as $key => $val){
+        foreach ($_POST as $key => $val) {
             $input[$key] = $val;
         }
-        foreach($_FILES as $key => $val){
+        foreach ($_FILES as $key => $val) {
             $input[$key] = $val;
         }
         if ($index === false) {
             return $input;
         }
-        return array_key_exists($index, $input) ? $input[$index] : null;
+        
+        if(array_key_exists($index, $input)) {
+            return $xss_filter ? $this->xss_clean($input[$index]) : $input[$index];
+        } else {
+            return null;
+        }
+        
     }
 
     /**
@@ -257,7 +264,5 @@ class Input {
         }
         return $headers;
     }
-    
-    
 
 }
