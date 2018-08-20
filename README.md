@@ -66,18 +66,31 @@ class User extends \PHPRestFramework\Controller {
 
 
     public function getGreetings(){
-
-        return $this->_response_object(false, 1000, ["success"], ["greetings" => "Welcome to PHP Rest API framework"]);
+        //do stuff here 
+        $code = 1000;
+        $message = ["success"];
+        $data = [
+            "greetings" => "welcome to PHP Rest API Framework"
+        ];
+        return $this->_response_object(false, $code, $message, $data);
     }
 
 
     public function postGreetings(){
+
+        //access input by using $this->_param("index");
         $message = $this->_param("message");
 
-        //write your code to presist this message 
-        //and return success 
+        //if you want to xss filter input use 
+        $message = $this->_param("message", true);
 
-        return $this->_response_object(false, 1000, ["success"]);
+        //do stuff with params
+        //and return response 
+
+        $code = 1000;
+        $message = ["success"];
+
+        return $this->_response_object(false, $code, $message);
 
         // $this->_response_object(); accepts 4 params as follows
         // 1 -> status boolean true/false
