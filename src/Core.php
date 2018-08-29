@@ -144,9 +144,9 @@ class Core {
      * @param string $key optional
      * @return Mixed
      */
-    public function _param($key = false){
+    public function _param($key = false, $xss_filter = false){
         if($key !== false){
-            return Input::param($key);
+            return Input::param($key, $xss_filter);
         }
         return Input::param();
     }

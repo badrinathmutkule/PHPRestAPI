@@ -207,7 +207,7 @@ class Input {
         }
         
         if(array_key_exists($index, $input)) {
-            return $xss_filter ? $this->xss_clean($input[$index]) : $input[$index];
+            return $xss_filter ? self::xss_clean($input[$index]) : $input[$index];
         } else {
             return null;
         }
