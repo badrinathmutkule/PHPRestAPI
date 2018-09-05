@@ -828,7 +828,7 @@ class Validation {
         }
         $expression = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
         if (!preg_match($expression, $input)) {
-            return "The [$field] field eight characters including one uppercase letter, one special character and alphanumeric characters";
+            return "The [$field] field must have eight characters including one uppercase letter, one special character and alphanumeric characters";
         }
         return false;
     }
