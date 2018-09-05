@@ -170,6 +170,7 @@ Available Validators
 * file_type `Determine if the uploaded file is of type within the pre-defined value set valid values must be provided in semicolon-separated list format (like so: value1;value2;value3;..;valuen)`
 * valid_image `Determine if uploaded file is a valid image file`
 * min_age `Determines if the age for given date is higher or equal to a specific value`
+* password `Determines if the field is a valid password with eight characters including one uppercase letter, one special character and alphanumeric characters`
 * optional `No validation is used for optional field`
 
 

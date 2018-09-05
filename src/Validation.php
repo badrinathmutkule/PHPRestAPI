@@ -31,8 +31,6 @@ class Validation {
             }
         }
         return $this->errors;
-
-        
     }
 
     /**
@@ -44,23 +42,23 @@ class Validation {
      */
     private function validate_field($field, $validators, $value) {
         $validator_array = explode('|', $validators);
-        
+
         foreach ($validator_array as $validation) {
             $validation = explode(",", $validation);
             $method = $validation[0];
             $param = isset($validation[1]) ? $validation[1] : "";
             $validation_method = "validate_" . $method;
-            
+
             if (method_exists($this, $validation_method)) {
                 $error = $this->{$validation_method}($field, $value, $param);
-                if($error !== false){
+                if ($error !== false) {
                     return $error;
                 }
             } else {
                 throw new \Exception("Invalid validation method [$method]");
             }
         }
-        
+
         return false;
     }
 
@@ -72,7 +70,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_is_in($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         $param = trim(strtolower($param));
@@ -92,7 +90,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_not_in($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         $param = trim(strtolower($param));
@@ -126,7 +124,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_valid_email($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (!filter_var($input, FILTER_VALIDATE_EMAIL)) {
@@ -143,10 +141,10 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_max_len($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
-        
+
         if (function_exists('mb_strlen')) {
             if (mb_strlen($input) <= (int) $param) {
                 return false;
@@ -167,10 +165,10 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_min_len($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
-        
+
         if (function_exists('mb_strlen')) {
             if (mb_strlen($input) >= (int) $param) {
                 return false;
@@ -191,7 +189,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_exact_len($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (function_exists('mb_strlen')) {
@@ -214,7 +212,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_alpha($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (!preg_match('/^([a-zÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖßÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ])+$/i', $input) !== false) {
@@ -231,7 +229,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_alpha_numeric($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (!preg_match('/^([a-z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖßÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ])+$/i', $input) !== false) {
@@ -248,7 +246,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_alpha_dash($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (!preg_match('/^([a-z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖßÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ_-])+$/i', $input) !== false) {
@@ -265,7 +263,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_alpha_space($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (!preg_match("/^([a-z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖßÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ\s])+$/i", $input) !== false) {
@@ -282,7 +280,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_numeric($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
 
@@ -300,7 +298,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_integer($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (filter_var($input, FILTER_VALIDATE_INT) === false) {
@@ -317,7 +315,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_boolean($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if ($input === true || $input === false) {
@@ -334,7 +332,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_float($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (filter_var($input, FILTER_VALIDATE_FLOAT) === false) {
@@ -351,7 +349,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_valid_url($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (!filter_var($input, FILTER_VALIDATE_URL)) {
@@ -368,7 +366,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_url_exists($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         $url = parse_url(strtolower($input));
@@ -395,7 +393,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_valid_ip($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (!filter_var($input, FILTER_VALIDATE_IP) !== false) {
@@ -412,7 +410,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_valid_ipv4($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (!filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
@@ -429,7 +427,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_valid_ipv6($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (!filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
@@ -446,7 +444,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_valid_cc($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         $number = preg_replace('/\D/', '', $input);
@@ -481,7 +479,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_valid_name($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (!preg_match("/^([a-zÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖßÙÚÛÜÝàáâãäåçèéêëìíîïñðòóôõöùúûüýÿ '-])+$/i", $input) !== false) {
@@ -498,7 +496,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_street_address($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         // Theory: 1 number, 1 or more spaces, 1 or more words
@@ -520,7 +518,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_iban($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         static $character = array(
@@ -550,7 +548,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_date($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         $cdate1 = date('Y-m-d', strtotime($input));
@@ -569,7 +567,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_min_age($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         $cdate1 = new DateTime(date('Y-m-d', strtotime($input)));
@@ -590,7 +588,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_max_numeric($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (is_numeric($input) && is_numeric($param) && ($input <= $param)) {
@@ -607,7 +605,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_min_numeric($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (is_numeric($input) && is_numeric($param) && ($input >= $param)) {
@@ -624,7 +622,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_starts_with($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (strpos($input, $param) !== 0) {
@@ -641,7 +639,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_valid_image($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (isset($input['tmp_name']) && $input['tmp_name'] !== '') {
@@ -661,7 +659,7 @@ class Validation {
      * @return Mixed
      */
     protected function validate_file_type($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
         if (isset($input['type'])) {
@@ -681,17 +679,16 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_max_file_size($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
-        
+
         if (isset($input['size']) && $input['size'] <= ($param * 1024 * 1024)) {
             return false;
         }
         return "The [$field] needs to be of size less than [$param] MB";
     }
-    
-    
+
     /**
      * Validate Uploaded file is a valid file
      * @param string $field
@@ -699,8 +696,8 @@ class Validation {
      * @param string $param optional
      * @return Mixed 
      */
-    protected function validate_valid_file($field, $input, $param = null){
-        if($input === null){
+    protected function validate_valid_file($field, $input, $param = null) {
+        if ($input === null) {
             return false;
         }
         if (isset($input['error']) && $input['error'] > 0) {
@@ -717,7 +714,7 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_allowed_extension($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
 
@@ -743,10 +740,10 @@ class Validation {
      * @return Mixed 
      */
     protected function validate_guidv4($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
-        
+
         if (preg_match("/\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/", $input)) {
             return false;
         }
@@ -770,10 +767,10 @@ class Validation {
      * 	1-(555)-555-5555: valid
      */
     protected function validate_phone_number($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
-        
+
         $regex = '/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i';
         if (!preg_match($regex, $input)) {
             return "The [$field] field needs to be a valid phone number";
@@ -789,10 +786,10 @@ class Validation {
      * @return Array
      */
     protected function validate_regex($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
-        
+
         $regex = $param;
         if (!preg_match($regex, $input)) {
             return "The [$field] field needs to match [$param] regular expression";
@@ -808,12 +805,30 @@ class Validation {
      * @return Array
      */
     protected function validate_valid_json($field, $input, $param = null) {
-        if($input === null){
+        if ($input === null) {
             return false;
         }
-        
+
         if (!is_string($input) || !is_object(json_decode($input))) {
             return "The [$field] field needs to be a valid json string";
+        }
+        return false;
+    }
+
+    /**
+     * Check if a value is a valid password
+     * @param string $field
+     * @param string $input
+     * @param string $param
+     * @return Mixed
+     */
+    protected function validate_password($field, $input, $param = null) {
+        if ($input === null) {
+            return false;
+        }
+        $expression = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+        if (!preg_match($expression, $input)) {
+            return "The [$field] field eight characters including one uppercase letter, one special character and alphanumeric characters";
         }
         return false;
     }
