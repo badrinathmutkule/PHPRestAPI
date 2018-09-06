@@ -826,9 +826,19 @@ class Validation {
         if ($input === null) {
             return false;
         }
-        $expression = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
-        if (!preg_match($expression, $input)) {
-            return "The [$field] field must have eight characters including one uppercase letter, one special character and alphanumeric characters";
+        if(strlen($input) < 8){
+            return "The [$field] field must have at least eight characters.";
+        }
+        if (preg_match('/[0-9]/', $input) !== 1) {
+           return "The [$field] field must contain alphanumeric characters.";
+        }
+
+        if (preg_match('/[a-z]/', $input) !== 1) {
+            return "The [$field] field must contain lowercase letters";
+        }
+
+        if (preg_match('/[A-Z]/', $input) !== 1) {
+           return "The [$field] field must contain uppercase letters";
         }
         return false;
     }
