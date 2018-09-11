@@ -26,6 +26,12 @@ function shutdown_handler() {
                 'line' => $error['line']
         ]];
 
+        if (defined("BUGSNAG_KEY")) {
+            $bugsnag = Bugsnag\Client::make(BUGSNAG_KEY);
+            $bugsnag->notifyError("shutdown_error", json_encode($e));
+        }
+
+
         if (defined("DEBUG_MODE") && DEBUG_MODE) {
             $output = response_object(true, 500, $e);
             response(500, $output);
@@ -51,6 +57,11 @@ set_error_handler(function($type, $message, $file, $line) {
             'line' => $line
     ]];
 
+    if (defined("BUGSNAG_KEY")) {
+        $bugsnag = Bugsnag\Client::make(BUGSNAG_KEY);
+        $bugsnag->notifyError("error", json_encode($error));
+    }
+
     if (defined("DEBUG_MODE") && DEBUG_MODE) {
         $output = response_object(true, 500, $error);
         response(500, $output);
@@ -60,7 +71,9 @@ set_error_handler(function($type, $message, $file, $line) {
     }
 }, E_ALL);
 
+
 function exception_handler($ex) {
+
     if (defined("DEBUG_MODE") && DEBUG_MODE) {
         $exception = ['exception' => [
                 'message' => $ex->getMessage(),
@@ -68,6 +81,12 @@ function exception_handler($ex) {
                 'file' => $ex->getFile(),
                 'line' => $ex->getLine()
         ]];
+
+        if (defined("BUGSNAG_KEY")) {
+            $bugsnag = Bugsnag\Client::make(BUGSNAG_KEY);
+            $bugsnag->notifyError("error", json_encode($exception));
+        }
+
         $output = response_object(true, 500, $exception);
         response(500, $output);
     } else {
@@ -77,7 +96,6 @@ function exception_handler($ex) {
 }
 
 set_exception_handler("exception_handler");
-
 
 /**
  * Response object function
