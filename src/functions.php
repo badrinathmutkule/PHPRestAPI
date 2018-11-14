@@ -71,7 +71,6 @@ set_error_handler(function($type, $message, $file, $line) {
     }
 }, E_ALL);
 
-
 function exception_handler($ex) {
 
     if (defined("DEBUG_MODE") && DEBUG_MODE) {
@@ -122,7 +121,12 @@ function response_object($error, $code, array $message, $data = array()) {
 function response($status, array $data) {
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Headers: Origin, Content-Type, AuthToken, ApiKey, AccessToken");
-    header("Content-Type: application/json");
+
+    header("Content-Type: application/json; charset=UTF-8");
+    header("x-content-type-options: nosnif");
+    header("x-xss-protection: 1; mode=block");
+    header("x-frame-options: sameorigin");
+    header("cache-control: no-cache, no-store, max-age=0, must-revalidate");
 
     http_response_code($status);
     $data['process_time'] = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
