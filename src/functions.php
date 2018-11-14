@@ -26,7 +26,7 @@ function shutdown_handler() {
                 'line' => $error['line']
         ]];
 
-        if (defined("BUGSNAG_KEY")) {
+        if (defined("BUGSNAG_KEY") && BUGSNAG_KEY) {
             $bugsnag = Bugsnag\Client::make(BUGSNAG_KEY);
             $bugsnag->notifyError("shutdown_error", json_encode($e));
         }
@@ -57,7 +57,7 @@ set_error_handler(function($type, $message, $file, $line) {
             'line' => $line
     ]];
 
-    if (defined("BUGSNAG_KEY")) {
+    if (defined("BUGSNAG_KEY") && BUGSNAG_KEY) {
         $bugsnag = Bugsnag\Client::make(BUGSNAG_KEY);
         $bugsnag->notifyError("error", json_encode($error));
     }
@@ -71,6 +71,12 @@ set_error_handler(function($type, $message, $file, $line) {
     }
 }, E_ALL);
 
+
+
+/**
+ * exception handler
+ * @param type $ex
+ */
 function exception_handler($ex) {
 
     if (defined("DEBUG_MODE") && DEBUG_MODE) {
@@ -81,7 +87,7 @@ function exception_handler($ex) {
                 'line' => $ex->getLine()
         ]];
 
-        if (defined("BUGSNAG_KEY")) {
+        if (defined("BUGSNAG_KEY") && BUGSNAG_KEY) {
             $bugsnag = Bugsnag\Client::make(BUGSNAG_KEY);
             $bugsnag->notifyError("error", json_encode($exception));
         }
@@ -118,6 +124,12 @@ function response_object($error, $code, array $message, $data = array()) {
     return $finalData;
 }
 
+
+/**
+ * response 
+ * @param type $status
+ * @param array $data
+ */
 function response($status, array $data) {
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Headers: Origin, Content-Type, AuthToken, ApiKey, AccessToken");
