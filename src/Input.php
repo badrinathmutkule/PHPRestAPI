@@ -191,7 +191,7 @@ class Input {
      * @return Mixed
      */
     public static function param($index = false, $xss_filter = false) {
-        
+
         $input = self::get_body();
         foreach ($_GET as $key => $val) {
             $input[$key] = $val;
@@ -205,13 +205,12 @@ class Input {
         if ($index === false) {
             return $input;
         }
-        
-        if(array_key_exists($index, $input)) {
+
+        if (array_key_exists($index, $input)) {
             return $xss_filter ? self::xss_clean($input[$index]) : $input[$index];
         } else {
             return null;
         }
-        
     }
 
     /**
@@ -243,25 +242,25 @@ class Input {
      * @return type
      */
     private static function get_all_headers() {
-        if (!function_exists('apache_request_headers')) {
-
-            function apache_request_headers() {
-                foreach ($_SERVER as $key => $value) {
-                    if (substr($key, 0, 5) == "HTTP_") {
-                        $key = str_replace(" ", "-", ucwords(strtolower(str_replace("_", " ", substr($key, 5)))));
-                        $out[$key] = $value;
-                    } else {
-                        $out[$key] = $value;
-                    }
-                }
-                return $out;
-            }
-
-        }
+        
         $headers = [];
-        foreach (apache_request_headers() as $key => $val) {
-            $headers[strtolower($key)] = $val;
+        
+        if (function_exists('apache_request_headers')) {
+            foreach (apache_request_headers() as $key => $val) {
+                $headers[strtolower($key)] = $val;
+            }
+            return $headers;
         }
+        
+        foreach ($_SERVER as $key => $value) {
+            if (substr($key, 0, 5) == "HTTP_") {
+                $key = str_replace(" ", "-", ucwords(strtolower(str_replace("_", " ", substr($key, 5)))));
+                $headers[strtolower($key)] = $value;
+            } else {
+                $headers[strtolower($key)] = $value;
+            }
+        }
+
         return $headers;
     }
 
