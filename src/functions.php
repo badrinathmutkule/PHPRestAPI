@@ -132,8 +132,8 @@ function response_object($error, $code, array $message, $data = array()) {
  */
 function response($status, array $data) {
     header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: Origin, Content-Type, AuthToken, ApiKey, AccessToken");
-
+    header("Access-Control-Allow-Headers: Origin, Content-Type, AuthToken, ApiKey, AccessToken, RefreshToken");
+    
     header("Content-Type: application/json; charset=UTF-8");
     header("x-content-type-options: nosnif");
     header("x-xss-protection: 1; mode=block");
@@ -143,5 +143,6 @@ function response($status, array $data) {
     http_response_code($status);
     $data['process_time'] = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
     echo json_encode($data);
+    
     exit;
 }
