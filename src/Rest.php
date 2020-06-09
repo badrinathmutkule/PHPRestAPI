@@ -52,32 +52,39 @@ class Rest {
      */
     public function serve() {
         $mapped = $this->mapRequest();
+        
         if ($mapped === false) {
-            $response = response_object(true, 500, ['Method not found']);
-            response(404, $response);
+            $response = Response::response_object(true, 500, ['Method not found']);
+            Response::response(404, $response);
         }
+        
         $valid = $this->validateAuth($mapped);
         if (!empty($valid)) {
-            response(401, $valid);
+            Response::response(401, $valid);
         }
+        
         $errors = $this->runValidations($mapped);
         if (!empty($errors)) {
-            $response = response_object(true, 500, $errors);
-            response(400, $response);
+            $response = Response::response_object(true, 500, $errors);
+            Response::response(400, $response);
         }
 
         $namespace = $this->getNs($mapped['controller']);
         if (class_exists($namespace) && method_exists($namespace, $mapped['action'])) {
             $instance = new $namespace;
             $result = $instance->{$mapped['action']}();
+            
             if (!$this->isResponseObject($result)) {
-                $response = response_object(true, 500, ['Method should return response object']);
-                response(500, $response);
+                $response = Response::response_object(true, 500, ['Method should return response object']);
+                Response::response(500, $response);
             }
-            response(200, $result);
+            
+            Response::response(200, $result);
         }
-        $response = response_object(true, 500, ['Controller and/or action not found']);
-        response(500, $response);
+        
+        $response = Response::response_object(true, 500, ['Controller and/or action not found']);
+        Response::response(500, $response);
+        
     }
 
     /**
@@ -93,14 +100,14 @@ class Rest {
                 $instance = new $namespace;
                 $valid = $instance->validate();
                 if (!is_array($valid) || !isset($valid['error'])) {
-                    return response_object(true, 500, ["Auth method [$key] should return response object"]);
+                    return Response::response_object(true, 500, ["Auth method [$key] should return response object"]);
                 } else {
                     if ($valid['error'] === true) {
                         return $valid;
                     }
                 }
             } else {
-                return response_object(true, 500, ["Invalid auth method [$key]"]);
+                return Response::response_object(true, 500, ["Invalid auth method [$key]"]);
             }
         }
         return [];

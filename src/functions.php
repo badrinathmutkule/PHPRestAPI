@@ -33,11 +33,12 @@ function shutdown_handler() {
 
 
         if (defined("DEBUG_MODE") && DEBUG_MODE) {
-            $output = response_object(true, 500, $e);
-            response(500, $output);
+            $output = PHPRestFramework\Response::response_object(true, 500, $e);
+
+            PHPRestFramework\Response::response(500, $output);
         } else {
-            $output = response_object(true, 500, ['server error']);
-            response(500, $output);
+            $output = PHPRestFramework\Response::response_object(true, 500, ['server error']);
+            PHPRestFramework\Response::response(500, $output);
         }
     }
 }
@@ -63,15 +64,13 @@ set_error_handler(function($type, $message, $file, $line) {
     }
 
     if (defined("DEBUG_MODE") && DEBUG_MODE) {
-        $output = response_object(true, 500, $error);
-        response(500, $output);
+        $output = PHPRestFramework\Response::response_object(true, 500, $error);
+        PHPRestFramework\Response::response(500, $output);
     } else {
-        $output = response_object(true, 500, ['server error']);
-        response(500, $output);
+        $output = PHPRestFramework\Response::response_object(true, 500, ['server error']);
+        PHPRestFramework\Response::response(500, $output);
     }
 }, E_ALL);
-
-
 
 /**
  * exception handler
@@ -92,57 +91,17 @@ function exception_handler($ex) {
             $bugsnag->notifyError("error", json_encode($exception));
         }
 
-        $output = response_object(true, 500, $exception);
-        response(500, $output);
+        $output = PHPRestFramework\Response::response_object(true, 500, $exception);
+        PHPRestFramework\Response::response(500, $output);
+        
     } else {
-        $output = response_object(true, 500, ['server exception']);
-        response(500, $output);
+        $output = PHPRestFramework\Response::response_object(true, 500, ['server exception']);
+        PHPRestFramework\Response::response(500, $output);
     }
 }
 
 set_exception_handler("exception_handler");
 
-/**
- * Response object function
- * @param boolean $error true or palse value for error
- * @param int $code an error or success code
- * @param array $message 
- * @param array $data optional
- * return final array
- */
-function response_object($error, $code, array $message, $data = array()) {
-
-    $finalData = [
-        'error' => $error,
-        'code' => $code,
-        'message' => $message
-    ];
-
-    if (!empty($data)) {
-        $finalData['data'] = $data;
-    }
-    return $finalData;
-}
 
 
-/**
- * response 
- * @param type $status
- * @param array $data
- */
-function response($status, array $data) {
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: Origin, Content-Type, AuthToken, ApiKey, AccessToken, RefreshToken");
-    
-    header("Content-Type: application/json; charset=UTF-8");
-    header("x-content-type-options: nosnif");
-    header("x-xss-protection: 1; mode=block");
-    header("x-frame-options: sameorigin");
-    header("cache-control: no-cache, no-store, max-age=0, must-revalidate");
 
-    http_response_code($status);
-    $data['process_time'] = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
-    echo json_encode($data);
-    
-    exit;
-}
