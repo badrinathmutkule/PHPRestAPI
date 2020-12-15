@@ -4,6 +4,6 @@
  * @author Badrinath Mutkule <badrinath.mutkule@gmail.com>
  * @version 1.0.0 [Beta]
  */
-namespace PHPRestFramework;
+namespace MaskAPI;
 
 class Model extends Core{}

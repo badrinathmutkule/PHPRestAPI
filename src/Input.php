@@ -6,7 +6,7 @@
  * @version 1.0.0 [Beta]
  */
 
-namespace PHPRestFramework;
+namespace MaskAPI;
 
 class Input {
 

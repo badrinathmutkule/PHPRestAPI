@@ -6,7 +6,7 @@
  * @version 1.0.0 [Beta]
  */
 
-namespace PHPRestFramework;
+namespace MaskAPI;
 
 abstract class Auth extends Core {
     

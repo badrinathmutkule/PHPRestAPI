@@ -1,14 +1,14 @@
 {   
     "name": "salesmask/maskapi",
     "type": "library",
-    "description": "MaskAPI is a PHP micro framework that helps you quickly write simple yet powerful Restful APIs",
-    "keywords": ["PHP Api Framework", "framework","micro","api","router", "rest","MaskAPI"],
+    "description": "MaskAPI is a PHP micro framework that helps you quickly write simple yet powerful restful apis",
+    "keywords": ["PHP API Framework", "framework","micro framework","PHP api","PHP Framework", "Rest Framework","maskapi"],
     "homepage": "https://salesmask.com",
     "license": "MIT",
     "authors": [
         {
             "name": "Badrinath M",
-            "email": "badrinath.mutkule@gmail.com",
+            "email": "admin@salesmask.com",
             "homepage": "https://salesmask.com"
         }
     ],
@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PHPRestFramework\\": "src/"
+            "Maskapi\\": "src/"
         },
         "files": [
             "src/functions.php"

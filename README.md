@@ -1,19 +1,19 @@
 # PHP Rest API Framework
 
-[![Total Downloads](https://poser.pugx.org/badrinathmutkule/phprestapi/downloads)](https://packagist.org/packages/badrinathmutkule/phprestapi)
-[![License](https://poser.pugx.org/badrinathmutkule/phprestapi/license)](https://packagist.org/packages/badrinathmutkule/phprestapi)
+[![Total Downloads](https://poser.pugx.org/salesmask/maskapi/downloads)](https://packagist.org/packages/salesmask/maskapi)
+[![License](https://poser.pugx.org/salesmask/maskapi/license)](https://packagist.org/packages/salesmask/maskapi)
 
-PHP Rest API is a PHP micro-framework that helps you quickly write simple yet powerful APIs.
+Mask API is a PHP micro-framework that helps you quickly write simple yet powerful restful APIs.
 
 ## Installation
 
 It's recommended that you use [Composer](https://getcomposer.org/) to install PHP Rest API.
 
 ```bash
-$ composer require badrinathmutkule/phprestapi "dev-master"
+$ composer require salesmask/maskapi "dev-master"
 ```
 
-This will install PHP Rest API and all required dependencies. PHP Rest API requires PHP 5.5.0 or newer.
+This will install Mask API and all required dependencies. Mask API requires PHP 5.5.0 or newer.
 
 ## Usage
 
@@ -24,7 +24,7 @@ Create an index.php file with the following contents:
 
 require_once 'vendor/autoload.php';
 
-$rest = new PHPRestFramework\Rest("routes.yaml");
+$rest = new MaskAPI\Rest("routes.yaml");
 $rest->serve();
 
 ```
@@ -57,7 +57,7 @@ Now create controller file named User.php under Application folder with followin
 
 namespace Application;
 
-class User extends \PHPRestFramework\Controller {
+class User extends \MaskAPI\Controller {
 
     public function __construct(){
         //write any construct code 
@@ -184,7 +184,7 @@ require_once 'vendor/autoload.php';
 
 define('DEBUG_MODE', TRUE);
 
-$swagger = new PHPRestFramework\Swagger();
+$swagger = new MaskAPI\Swagger();
 
 $swagger->set_info([
     "version" => "1.0",
@@ -223,8 +223,8 @@ If you discover security related issues, please email badrinath.mutkule@gmail.co
 
 ## Credits
 
-- [Badrinath Mutkule](https://github.com/badrinathmutkule)
+- [Badrinath M](https://github.com/salesmask)
 
 ## License
 
-The PHP Rest API Framework is licensed under the MIT license. See [License File](LICENSE.md) for more information.
+The Mask API Framework is licensed under the MIT license. See [License File](LICENSE.md) for more information.
