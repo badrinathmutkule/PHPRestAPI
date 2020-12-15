@@ -1,15 +1,15 @@
 {   
-    "name": "badrinathmutkule/phprestapi",
+    "name": "salesmask/maskapi",
     "type": "library",
-    "description": "PHPRestAPI is a PHP micro framework that helps you quickly write simple yet powerful Restful APIs",
-    "keywords": ["framework","micro","api","router", "rest","PHPRestAPI"],
-    "homepage": "https://edcast.com",
+    "description": "MaskAPI is a PHP micro framework that helps you quickly write simple yet powerful Restful APIs",
+    "keywords": ["PHP Api Framework", "framework","micro","api","router", "rest","MaskAPI"],
+    "homepage": "https://salesmask.com",
     "license": "MIT",
     "authors": [
         {
-            "name": "Badrinath Mutkule",
+            "name": "Badrinath M",
             "email": "badrinath.mutkule@gmail.com",
-            "homepage": "https://edcast.com"
+            "homepage": "https://salesmask.com"
         }
     ],
     "require": {
