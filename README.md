@@ -219,7 +219,7 @@ $ phpunit
 
 ## Security
 
-If you discover security related issues, please email badrinath.mutkule@gmail.com instead of using the issue tracker.
+If you discover security related issues, please email badrinath@salesmask.com instead of using the issue tracker.
 
 ## Credits
 
