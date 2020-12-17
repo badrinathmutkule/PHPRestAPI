@@ -5,5 +5,9 @@
  * @version 1.0.0 [Beta]
  */
 namespace MaskAPI;
+use MaskAPI\Core\Methods;
 
-class Model extends Core{}
+
+class Model extends Methods{
+   //model customisations 
+}

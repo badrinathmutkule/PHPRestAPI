@@ -6,9 +6,11 @@
  * @version 1.0.0 [Beta]
  */
 
-namespace MaskAPI;
+namespace MaskAPI\Core;
 
 use Symfony\Component\Yaml\Yaml;
+use MaskAPI\Helper\Input;
+use MaskAPI\Helper\Response;
 
 class Rest {
 

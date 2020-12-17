@@ -7,4 +7,8 @@
 
 namespace MaskAPI;
 
-class Controller extends Core{}
+use MaskAPI\Core\Methods;
+
+class Controller extends Methods{
+    //controller customzations
+}

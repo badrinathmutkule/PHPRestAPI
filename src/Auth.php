@@ -7,8 +7,9 @@
  */
 
 namespace MaskAPI;
+use MaskAPI\Core\Methods;
 
-abstract class Auth extends Core {
+abstract class Auth extends Methods {
     
     /**
      * @validate method should return response object

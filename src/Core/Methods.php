@@ -6,9 +6,11 @@
  * @version 1.0.0 [Beta]
  */
 
-namespace MaskAPI;
+namespace MaskAPI\Core;
+use MaskAPI\Helper\Input;
+use MaskAPI\Helper\Response;
 
-class Core {
+class Methods {
 
     /**
      * Get Request Header/s

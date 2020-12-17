@@ -6,7 +6,7 @@
  * @version 1.0.0 [Beta]
  */
 
-namespace MaskAPI;
+namespace MaskAPI\Helper;
 
 class Input {
 
