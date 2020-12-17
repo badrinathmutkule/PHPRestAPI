@@ -33,12 +33,12 @@ function shutdown_handler() {
 
 
         if (defined("DEBUG_MODE") && DEBUG_MODE) {
-            $output = PHPRestFramework\Response::response_object(true, 500, $e);
+            $output = MaskAPI\Helper\Response::response_object(true, 500, $e);
 
-            PHPRestFramework\Response::response(500, $output);
+            MaskAPI\Helper\Response::response(500, $output);
         } else {
-            $output = PHPRestFramework\Response::response_object(true, 500, ['server error']);
-            PHPRestFramework\Response::response(500, $output);
+            $output = MaskAPI\Helper\Response::response_object(true, 500, ['server error']);
+            MaskAPI\Helper\Response::response(500, $output);
         }
     }
 }
