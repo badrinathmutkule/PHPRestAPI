@@ -7,6 +7,7 @@
  */
 
 namespace MaskAPI\Doc;
+use MaskAPI\Doc\Swagger;
 
 class Main {
 
@@ -47,10 +48,51 @@ class Main {
     }
     
     
-    
+    /**
+     * Generate swagger document
+     * @param type $target
+     */
     public function generate($target){
+
+        echo "generating swagger documentation!". PHP_EOL;
+
         $source =  __DIR__ . DIRECTORY_SEPARATOR . "swaggerUi";
+        $target = $target . DIRECTORY_SEPARATOR . PUBLIC_DIRECTORY;
+
         $this->copy_directory($source, $target);
+
+        $swagger = new Swagger();
+        $swagger->set_base_path("/");
+        $swagger->set_route_file(ROUTE_FILE);
+        $swagger->set_host(API_ENDPOINT);
+        $swagger->set_schema(IS_HTTPS);
+
+        $swagger->set_info([
+            "version" => API_VERSION,
+            "title" => API_TITLE,
+            "description" => API_TITLE ." api documentation",
+            "license" => [
+                "name" => "MIT",
+                "url" => "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+            ],
+            "contact" => [
+                "name" => API_CONTACT_NAME,
+                "url" => API_CONTACT_URL,
+                "email" => API_CONTACT_EMAIL
+            ]
+        ]);
+
+        $swaggerFilePath = $target . DIRECTORY_SEPARATOR 
+                    . PUBLIC_DIRECTORY . DIRECTORY_SEPARATOR . "doc/swagger.json";
+        $swagger->generate($swaggerFilePath);
+
+        echo "success!". PHP_EOL;
+
     }
+
+
+
+
+
 
 }
