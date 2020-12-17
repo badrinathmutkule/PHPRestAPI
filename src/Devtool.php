@@ -30,7 +30,7 @@ class Devtool {
 
         if($command == "init"){
 
-            $source = __DIR__ . DIRECTORY_SEPARATOR . "config.php";
+            $source = __DIR__ . DIRECTORY_SEPARATOR . "config.php-development";
             $target = $path . DIRECTORY_SEPARATOR . "config.development.php";
             \copy($source, $target);
 
