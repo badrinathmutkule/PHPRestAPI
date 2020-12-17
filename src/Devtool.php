@@ -24,7 +24,8 @@ class Devtool {
      * 
      */
     public function run($path = false){
-
+        global $argv;
+        
         $command = isset($argv[1]) ? $argv[1] : false;
         $param = isset($argv[2]) ? $argv[2] : false;
 
