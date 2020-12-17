@@ -68,23 +68,23 @@ class Swagger {
      */
     public function generate($output) {
         if (php_sapi_name() !== "cli") {
-            echo 'Allowed only through command line';
+            echo 'Allowed only through command line' . PHP_EOL;
             return false;
         }
         $route_file = $this->route_file;
         if ($route_file == null || !file_exists($route_file)) {
-            echo 'Route file not found';
+            echo 'Route file not found' . PHP_EOL;
             return false;
         }
         $routes = Yaml::parse(file_get_contents($route_file));
         if (!is_array($routes)) {
-            echo "Invalid or empty route file";
+            echo "Invalid or empty route file" . PHP_EOL;
             return false;
         }
         $this->parse_routes($routes);
         $json = $this->generate_final_json();
         file_put_contents($output, $json);
-        echo "success";
+        echo "success" . PHP_EOL;
     }
 
     /**

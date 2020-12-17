@@ -53,6 +53,7 @@ class Rest {
      * Serve requests
      */
     public function serve() {
+        
         $mapped = $this->mapRequest();
         
         if ($mapped === false) {
