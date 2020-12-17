@@ -27,7 +27,11 @@ class Main {
     public function copy_directory($source, $target) {
         
         if (is_dir($source)) {
-            @mkdir($target);
+
+            if(!file_exists($target)){
+                @mkdir($target);
+            }
+
             $d = dir($source);
             while (FALSE !== ( $entry = $d->read() )) {
                 if ($entry == '.' || $entry == '..') {
@@ -57,9 +61,17 @@ class Main {
         echo "generating swagger documentation!". PHP_EOL;
 
         $source =  __DIR__ . DIRECTORY_SEPARATOR . "swaggerUi";
-        $target = $target . DIRECTORY_SEPARATOR . PUBLIC_DIRECTORY;
+        $publicDir = $target . DIRECTORY_SEPARATOR . PUBLIC_DIRECTORY;
+        $docDir = $publicDir . DIRECTORY_SEPARATOR . "doc";
+        if(!file_exists($publicDir)){
+            mkdir($publicDir);
+        }
 
-        $this->copy_directory($source, $target);
+        if(!file_exists($docDir)){
+            mkdir($docDir);
+        }
+
+        $this->copy_directory($source, $docDir);
 
         $swagger = new Swagger();
         $swagger->set_base_path("/");
@@ -82,11 +94,8 @@ class Main {
             ]
         ]);
 
-        $swaggerFilePath = $target . DIRECTORY_SEPARATOR 
-                    . PUBLIC_DIRECTORY . DIRECTORY_SEPARATOR . "doc/swagger.json";
+        $swaggerFilePath = $docDir . DIRECTORY_SEPARATOR ."swagger.json";
         $swagger->generate($swaggerFilePath);
-
-        echo "success!". PHP_EOL;
 
     }
 

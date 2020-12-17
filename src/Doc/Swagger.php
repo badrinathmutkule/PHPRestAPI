@@ -84,7 +84,7 @@ class Swagger {
         $this->parse_routes($routes);
         $json = $this->generate_final_json();
         file_put_contents($output, $json);
-        echo "success" . PHP_EOL;
+        echo "success!" . PHP_EOL;
     }
 
     /**
