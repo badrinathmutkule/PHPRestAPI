@@ -64,11 +64,11 @@ set_error_handler(function($type, $message, $file, $line) {
     }
 
     if (defined("DEBUG_MODE") && DEBUG_MODE) {
-        $output = PHPRestFramework\Response::response_object(true, 500, $error);
-        PHPRestFramework\Response::response(500, $output);
+        $output =  MaskAPI\Helper\Response::response_object(true, 500, $error);
+        MaskAPI\Helper\Response::response(500, $output);
     } else {
-        $output = PHPRestFramework\Response::response_object(true, 500, ['server error']);
-        PHPRestFramework\Response::response(500, $output);
+        $output = MaskAPI\Helper\Response::response_object(true, 500, ['server error']);
+        MaskAPI\Helper\Response::response(500, $output);
     }
 }, E_ALL);
 
@@ -91,12 +91,12 @@ function exception_handler($ex) {
             $bugsnag->notifyError("error", json_encode($exception));
         }
 
-        $output = PHPRestFramework\Response::response_object(true, 500, $exception);
-        PHPRestFramework\Response::response(500, $output);
+        $output = MaskAPI\Helper\Response::response_object(true, 500, $exception);
+        MaskAPI\Helper\Response::response(500, $output);
         
     } else {
-        $output = PHPRestFramework\Response::response_object(true, 500, ['server exception']);
-        PHPRestFramework\Response::response(500, $output);
+        $output = MaskAPI\Helper\Response::response_object(true, 500, ['server exception']);
+        MaskAPI\Helper\Response::response(500, $output);
     }
 }
 
