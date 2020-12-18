@@ -1,13 +1,14 @@
 <?php
+
 /**
- * The Auth Abstract class
+ * The configuration file
  * @author Badrinath Mutkule <badrinath.mutkule@gmail.com>
  * @version 1.0.0 [Beta]
  */
 
  /**
   * Define environment, environment can be set to  
-  * anything eg: development, staging, production
+  * anything like - development, staging, production
   */
  if(!defined("API_ENV")){
     define("API_ENV", "development");
@@ -45,7 +46,7 @@ define("API_CONTACT_NAME", "MaskAPI");
 
 
 /**
- * Contact URL - contact url for API documentation
+ * Contact URL - contact URL for API documentation
  */
 define("API_CONTACT_URL", "https://test.com");
 
@@ -68,4 +69,29 @@ define("ROUTE_FILE", "routes.yaml");
 
 define("PUBLIC_DIRECTORY", "www");
 
+
+/**
+ * MYSQL- Database configurations
+ * DB_CONNECTION_STRING
+ * DB_USER
+ * DB_PASSWORD
+ */
+
+/**
+ * DB CONNECTION STRING FOR PDO CONNECTION
+ */
+define("DB_CONNECTION_STRING", "mysql:host=localhost:3306;dbname=db_kisaansathi;charset=utf8");
+
+/**
+ * DB USER 
+ */
+define("DB_USER", "root");
+
+
+/**
+ * DB password
+ */
+define("DB_PASSWORD", "root");
     
+
+
