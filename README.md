@@ -3,61 +3,105 @@
 [![Total Downloads](https://poser.pugx.org/salesmask/maskapi/downloads)](https://packagist.org/packages/salesmask/maskapi)
 [![License](https://poser.pugx.org/salesmask/maskapi/license)](https://packagist.org/packages/salesmask/maskapi)
 
-Mask API is a PHP micro-framework that helps you quickly write simple yet powerful restful APIs.
+MaskAPI is a PHP micro-framework that helps you quickly write simple yet powerful restful APIs.
 
 ## Installation
 
-It's recommended that you use [Composer](https://getcomposer.org/) to install PHP Rest API.
+It's recommended that you use [Composer](https://getcomposer.org/) to install MaskAPI.
 
 ```bash
-$ composer require salesmask/maskapi "dev-master"
+$ composer require salesmask/maskapi
 ```
 
-This will install Mask API and all required dependencies. Mask API requires PHP 5.5.0 or newer.
+This will install MaskAPI and all required dependencies. MaskAPI requires PHP 5.5.0 or newer.
 
 ## Usage
-
-Create an index.php file with the following contents:
+Create a tool.php file with following contents:
 
 ```php
 <?php
 
 require_once 'vendor/autoload.php';
 
-$rest = new MaskAPI\Rest("routes.yaml");
-$rest->serve();
+$tool = new MaskAPI\Devtool();
+$tool->run(__DIR__);
+
+```
+Run following command to generate config file:
+```bash
+$ php tool.php init
+```
+Above command should generate config.development.php file in project root folder 
+Edit configurations and include config file in tool.php as shown here:
+
+```php
+<?php
+
+require_once 'vendor/autoload.php';
+require_once 'config.development.php';
+
+$tool = new MaskAPI\Devtool();
+$tool->run(__DIR__);
+
+```
+Note: PUBLIC_DIRECTORY constant defination in the configuration file it is set to www you can change it as per your preferance:
+
+```php
+/**
+ * Public directory
+ */
+define("PUBLIC_DIRECTORY", "www");
 
 ```
 
-Create routes.yaml file for defining your routes 
+Now run following command to generate public directory and api documentation:
+
+```bash
+$ php tool.php doc
+```
+Above command should generate www folder (public directory) in your project root directory and add doc folder under it with SwaggerUI codebase
+
+
+Create an index.php file inside www folder with the following contents:
+
+```php
+<?php
+
+require_once '../vendor/autoload.php';
+
+$app = new MaskAPI\Application("../routes.yaml");
+$app->serve();
+
+```
+
+Create routes.yaml file inside project root directory for defining your API routes:
 
 ```yaml
 
 - url: /hello/world
   method: get
-  controller: User
-  action: getGreetings
+  controller: MyController
+  action: sayHello
   auth: 
   validation: 
 
-- url: /hello/world
+- url: /hello/user
   method: post
-  controller: User
-  action: postGreetings
+  controller: MyController
+  action: showHello
   auth: 
   validation:
-        message: required
+        data: required
 
 ```
-Create a folder named Application where you will write all your models and controllers
-Now create controller file named User.php under Application folder with following contents
+Create a folder named Application and under it create controller file named MyController.php with following contents:
 
 ```php
 <?php
 
 namespace Application;
 
-class User extends \MaskAPI\Controller {
+class MyController extends \MaskAPI\Controller {
 
     public function __construct(){
         //write any construct code 
@@ -65,41 +109,34 @@ class User extends \MaskAPI\Controller {
     }
 
 
-    public function getGreetings(){
+    public function sayHello(){
         //do stuff here 
         $code = 1000;
         $message = ["success"];
         $data = [
-            "greetings" => "welcome to PHP Rest API Framework"
+            "hello" => "welcome to MaskAPI"
         ];
         return $this->_response_object(false, $code, $message, $data);
     }
 
 
-    public function postGreetings(){
+    public function showHello(){
 
         //access input by using $this->_param("index");
-        $message = $this->_param("message");
+        $data = $this->_param("data");
 
         //if you want to xss filter input use 
-        $message = $this->_param("message", true);
+        //$data = $this->_param("data", true);
 
-        //do stuff with params
-        //and return response 
+        //do stuff and return response 
 
         $code = 1000;
         $message = ["success"];
+        $result = [$data];
 
-        return $this->_response_object(false, $code, $message);
-
-        // $this->_response_object(); accepts 4 params as follows
-        // 1 -> status boolean true/false
-        // 2 -> status code (not http code ) any integer value
-        // 3 -> array<string> message success ior error
-        // 4 -> array<data> any data on success 
-
+        return $this->_response_object(false, $code, $message, $result);
+        
     }
-
 
 
 }
@@ -109,7 +146,7 @@ class User extends \MaskAPI\Controller {
 
 
 
-You may quickly test this running the built-in PHP server:
+You may quickly test this running the built-in PHP server inside www directory:
 ```bash
 $ php -S localhost:8000
 ```
@@ -122,11 +159,12 @@ Going to http://localhost:8000/hello/world will now display -
     "code": 1000,
     "message": ["success"],
     "data": {
-        "greetings": "Welcome to PHP Rest API framework"
+        "hello": "Welcome to MaskAPI"
     },
     "process_time": 0.0000086408
 }
 ```
+
 For more information on how to configure your web server, see the [Documentation].
 
 
@@ -174,42 +212,6 @@ Available Validators
 * optional `No validation is used for optional field`
 
 
-## Generate swagger documentation for your apis 
-
-create doc.php file with following content
-
-```php
-
-require_once 'vendor/autoload.php';
-
-define('DEBUG_MODE', TRUE);
-
-$swagger = new MaskAPI\Swagger();
-
-$swagger->set_info([
-    "version" => "1.0",
-    "title" => "Test APIs",
-    "description" => "Your api description goes here.",
-    "license" => [
-        "name" => "MIT",
-        "url" => "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
-    ]
-]);
-
-$swagger->set_host("localhost:8080");
-$swagger->set_base_path("/");  
-$swagger->set_schema("HTTP"); //htttp or https 
-$swagger->set_route_file('routes.yaml'); //route file path
-$swagger->generate('swagger.json');
-
-```
-
-run following command 
-
-```bash
-$ php doc.php
-```
-
 ## Tests
 To execute the test suite, you'll need phpunit.
 
@@ -227,4 +229,4 @@ If you discover security related issues, please email badrinath@salesmask.com in
 
 ## License
 
-The Mask API Framework is licensed under the MIT license. See [License File](LICENSE.md) for more information.
+The MaskAPI is licensed under the MIT license. See [License File](LICENSE.md) for more information.
