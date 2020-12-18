@@ -133,7 +133,7 @@ class Rest {
     private function runValidations($mapped_route) {
         $input = Input::param();
         $validations = !isset($mapped_route['validation']) ? [] : $mapped_route['validation'];
-        $v = new Validation();
+        $v = new \MaskAPI\Validation();
         return $v->run($input, $validations);
     }
 

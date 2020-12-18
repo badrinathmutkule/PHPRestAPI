@@ -80,7 +80,7 @@ define("PUBLIC_DIRECTORY", "www");
 /**
  * DB CONNECTION STRING FOR PDO CONNECTION
  */
-define("DB_CONNECTION_STRING", "mysql:host=localhost:3306;dbname=db_kisaansathi;charset=utf8");
+define("DB_CONNECTION_STRING", "mysql:host=localhost:3306;dbname=yourdatabase;charset=utf8");
 
 /**
  * DB USER 
